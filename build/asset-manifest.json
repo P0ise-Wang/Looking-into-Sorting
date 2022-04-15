@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "./static/css/main.3a338490.chunk.css",
-    "main.js": "./static/js/main.8cd06ce6.chunk.js",
-    "main.js.map": "./static/js/main.8cd06ce6.chunk.js.map",
-    "runtime~main.js": "./static/js/runtime~main.d653cc00.js",
-    "runtime~main.js.map": "./static/js/runtime~main.d653cc00.js.map",
-    "static/css/2.013590b5.chunk.css": "./static/css/2.013590b5.chunk.css",
-    "static/js/2.98c52b52.chunk.js": "./static/js/2.98c52b52.chunk.js",
-    "static/js/2.98c52b52.chunk.js.map": "./static/js/2.98c52b52.chunk.js.map",
-    "index.html": "./index.html",
-    "precache-manifest.07c38995f664bd6701eca2fcf00e5051.js": "./precache-manifest.07c38995f664bd6701eca2fcf00e5051.js",
-    "service-worker.js": "./service-worker.js",
-    "static/css/2.013590b5.chunk.css.map": "./static/css/2.013590b5.chunk.css.map",
-    "static/css/main.3a338490.chunk.css.map": "./static/css/main.3a338490.chunk.css.map"
+    "main.css": "/Looking-into-Sorting/static/css/main.3a338490.chunk.css",
+    "main.js": "/Looking-into-Sorting/static/js/main.cf2e53b9.chunk.js",
+    "main.js.map": "/Looking-into-Sorting/static/js/main.cf2e53b9.chunk.js.map",
+    "runtime~main.js": "/Looking-into-Sorting/static/js/runtime~main.72457849.js",
+    "runtime~main.js.map": "/Looking-into-Sorting/static/js/runtime~main.72457849.js.map",
+    "static/css/2.013590b5.chunk.css": "/Looking-into-Sorting/static/css/2.013590b5.chunk.css",
+    "static/js/2.98c52b52.chunk.js": "/Looking-into-Sorting/static/js/2.98c52b52.chunk.js",
+    "static/js/2.98c52b52.chunk.js.map": "/Looking-into-Sorting/static/js/2.98c52b52.chunk.js.map",
+    "index.html": "/Looking-into-Sorting/index.html",
+    "precache-manifest.d1f0bdfcff99a4ac1ceb480576bf7e16.js": "/Looking-into-Sorting/precache-manifest.d1f0bdfcff99a4ac1ceb480576bf7e16.js",
+    "service-worker.js": "/Looking-into-Sorting/service-worker.js",
+    "static/css/2.013590b5.chunk.css.map": "/Looking-into-Sorting/static/css/2.013590b5.chunk.css.map",
+    "static/css/main.3a338490.chunk.css.map": "/Looking-into-Sorting/static/css/main.3a338490.chunk.css.map"
   }
 }

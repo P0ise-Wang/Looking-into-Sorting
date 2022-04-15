@@ -59,7 +59,7 @@ render() {
                         </tr>
                         <tr>
                             <td>
-                                <a href='/#' className='mainpage-b' onClick={() => {
+                                <a href='#' className='mainpage-b' onClick={() => {
                                     if (!this.state.rendering) {
                                         this.setState({ mode: 'bubblesort', sortingClicked: true });
                                     }
@@ -79,7 +79,7 @@ render() {
                         </tr>
                         <tr>
                             <td>
-                                <a href='/#' className='mainpage-b' onClick={() => {
+                                <a href='#' className='mainpage-b' onClick={() => {
                                     if (!this.state.rendering) {
                                         this.setState({ mode: 'insertsort',sortingClicked: true });
                                     }
@@ -99,7 +99,7 @@ render() {
                         </tr>
                         <tr>
                             <td>
-                                <a href='/#' className='mainpage-b' onClick={() => {
+                                <a href='#' className='mainpage-b' onClick={() => {
                                     if (!this.state.rendering) {
                                     this.setState({ mode: 'selectsort',sortingClicked: true });
                                     }
@@ -117,7 +117,7 @@ render() {
                         </tr>
                         <tr>
                             <td>
-                                <a href='/#' className='mainpage-b' onClick={() => {
+                                <a href='#' className='mainpage-b' onClick={() => {
                                     if (!this.state.rendering) {
                                     this.setState({ mode: 'bubblesort', sortingClicked: true });
                                     }
@@ -136,7 +136,7 @@ render() {
                         </tr>
                         <tr>
                             <td>
-                                <a href='/#' className='mainpage-b' onClick={() => {
+                                <a href='#' className='mainpage-b' onClick={() => {
                                     if (!this.state.rendering) {
                                         this.setState({ mode: 'mergesort',sortingClicked: true });
                                     }
