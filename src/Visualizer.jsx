@@ -59,14 +59,14 @@ render() {
                         </tr>
                         <tr>
                             <td>
-                                <a href='#' className='mainpage-b' onClick={() => {
+                                <div className='mainpage-b' onClick={() => {
                                     if (!this.state.rendering) {
                                         this.setState({ mode: 'bubblesort', sortingClicked: true });
                                     }
                                 }} data-toggle={this.state.sortingClicked}>
                                     <span></span>
                                     冒泡排序
-                                </a>
+                                </div>
                             </td>
                             <td className = "alintro">
                                 “冒泡排序(Bubble Sort),是一种计算机科学领域的较简单的排序算法。
@@ -79,14 +79,14 @@ render() {
                         </tr>
                         <tr>
                             <td>
-                                <a href='#' className='mainpage-b' onClick={() => {
+                                <div className='mainpage-b' onClick={() => {
                                     if (!this.state.rendering) {
                                         this.setState({ mode: 'insertsort',sortingClicked: true });
                                     }
                                 }} data-toggle={this.state.sortingClicked}>
                                     <span></span>
                                     插入排序
-                                </a>
+                                </div>
                             </td>
                             <td className = "alintro">
                                 “插入排序(Insertion Sort)，一般也被称为直接插入排序。
@@ -99,14 +99,14 @@ render() {
                         </tr>
                         <tr>
                             <td>
-                                <a href='#' className='mainpage-b' onClick={() => {
+                                <div className='mainpage-b' onClick={() => {
                                     if (!this.state.rendering) {
                                     this.setState({ mode: 'selectsort',sortingClicked: true });
                                     }
                                 }} data-toggle={this.state.sortingClicked}>
                                     <span></span>
                                     选择排序
-                                </a>
+                                </div>
                             </td>
                             <td className = "alintro">
                                 “选择排序（Selection sort）是一种简单直观的排序算法。
@@ -117,14 +117,14 @@ render() {
                         </tr>
                         <tr>
                             <td>
-                                <a href='#' className='mainpage-b' onClick={() => {
+                                <div className='mainpage-b' onClick={() => {
                                     if (!this.state.rendering) {
                                     this.setState({ mode: 'bubblesort', sortingClicked: true });
                                     }
                                 }} data-toggle={this.state.sortingClicked}>
                                     <span></span>
                                     快速排序
-                                </a>
+                                </div>
                             </td>
                             <td className = "alintro">
                                 “快速排序(Quick Sort)是对冒泡排序的一种改进。
@@ -136,14 +136,14 @@ render() {
                         </tr>
                         <tr>
                             <td>
-                                <a href='#' className='mainpage-b' onClick={() => {
+                                <div className='mainpage-b' onClick={() => {
                                     if (!this.state.rendering) {
                                         this.setState({ mode: 'mergesort',sortingClicked: true });
                                     }
                                 }} data-toggle={this.state.sortingClicked}>
                                     <span></span>
                                     归并排序
-                                </a>
+                                </div>
                             </td>
                             <td className = "alintro">
                                 “归并排序(Merge Sort)是建立在归并操作上的一种有效,稳定的排序算法,
