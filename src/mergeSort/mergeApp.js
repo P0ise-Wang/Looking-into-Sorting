@@ -32,7 +32,7 @@ class MergeApp extends Component {
                       '\xa0\xa0//当右侧没有比较完成，填入原数组并调整参数',
                       'mergeSort(A,start,end)',
                       '\xa0\xa0if (start == end) return //只有一个数时直接返回',
-                      '\xa0\xa0mid = (start+end)/2; //用mid划分两个区间',
+                      '\xa0\xa0mid = (start + end)/2; //用mid划分两个区间',
                       '\xa0\xa0mergeSort(A, start, mid); //对前半段进行归并排序',
                       '\xa0\xa0mergeSort(A, mid+1, end); //对后半段进行归并排序',
                       '\xa0\xa0merge(A, start, mid, end); //归并两个已经排好的区间',
@@ -140,17 +140,17 @@ class MergeApp extends Component {
             </div>
             <div className="buttons">
               <form action="mergeApp.js">
-                  排序：<button type="button" className="btn-light" onClick={() => this.start()}>归并排序</button><span >&nbsp;&nbsp;&nbsp;</span>
-                  <button type="button" className="btn-light" onClick={() => this.init()}>重置</button><span >&nbsp;&nbsp;&nbsp;</span>
-                  <button type="button" className="btn-light" onClick={() => this.stop()}>暂停</button><span >&nbsp;&nbsp;&nbsp;</span>
-                  <button type="button" className="btn-light" onClick={() => this.nextstep()}>下一步</button><span >&nbsp;&nbsp;&nbsp;</span>
-                  <button type="button" className="btn-light" onClick={() => this.laststep()}>上一步</button><span >&nbsp;&nbsp;&nbsp;</span>
+                  排序：&nbsp;<button type="button" className="btn-light" onClick={() => this.start()}>归并排序</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <button type="button" className="btn-light" onClick={() => this.init()}>重置</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <button type="button" className="btn-light" onClick={() => this.stop2()}>暂停</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  单步：&nbsp;<button type="button" className="btn-light" onClick={() => this.nextstep()}>下一步</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <button type="button" className="btn-light" onClick={() => this.laststep()}>上一步</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   <br></br><br></br>
-                  生成数组方式：&nbsp;&nbsp;
+                  生成数组方式：&nbsp;
                   <button type="button" className="btn-light" onClick={() => this.changeInitMeansRandom()}>随机化生成</button>&nbsp;&nbsp;&nbsp;&nbsp;
                   <button type="button" className="btn-light" onClick={() => this.changeInitMeansInput()}>自定义数组</button>&nbsp;&nbsp;&nbsp;&nbsp;
                   
-                  排序速度：
+                  排序速度：&nbsp;
                     <select onChange={(e)=>this.getValue(e)}>
                       {
                         this.state.speeds.map((ele,index)=>{
@@ -188,9 +188,16 @@ class MergeApp extends Component {
   getUserInput(){
     this.stop();
     var a=$('input#inputArray').val().split(" ");
+    var len = a.length;
+    if(len > 20) len = 20;
     var arr=[];
-    for (var i=0; i < a.length; ++i){
-      arr[i] = parseInt(a[i]);
+    for (var i=0; i<len; ++i){
+      if(parseInt(a[i]) <= 50){
+        arr[i] = parseInt(a[i]);
+      }
+      else{
+        arr[i] = 50;
+      }
     }
     var oArr = [];
     for (var j = 0; j<arr.length; j++){
@@ -219,6 +226,7 @@ class MergeApp extends Component {
 
   count(n){
     this.stop();
+    if (n > 20) n = 20;
     var arr = this.randomArr(n, this.state.r);
     var oArr = [];
     for (var i = 0; i < n; i++){
@@ -402,6 +410,17 @@ class MergeApp extends Component {
       });
     }
 
+  }
+  stop2() {
+    var timeID = this.state.timeID;
+    var sorting = this.state.sorting;
+    if (timeID !== 0 && sorting === 1) {
+      clearInterval(timeID);
+      this.setState({
+        timeID: 0,
+        sorting: 2,
+      });
+    }
   }
 
 }

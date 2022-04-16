@@ -18,7 +18,7 @@ class BubbleApp extends Component {
     }
     var preCodeArr = ['for i = 0 to i = 末尾元素位置 - 1',
                       '\xa0\xa0for j = i + 1 to j = 待排序元素末尾位置 - 1',
-                      '\xa0\xa0\xa0\xa0if 基准位置元素元素 < 冒泡元素: 交换这两个元素的位置',
+                      '\xa0\xa0\xa0\xa0if a[j] < a[i]: 交换这两个元素的位置',
                       '\xa0\xa0\xa0\xa0else continue;']
     this.state = {
       arr: arr,
@@ -95,16 +95,16 @@ class BubbleApp extends Component {
             </div>
             <div className="buttons">
               <form action="bubbleApp.js">
-                  排序：<button type="button" className="btn-light" onClick={() => this.start()}>冒泡排序</button><span >&nbsp;&nbsp;&nbsp;</span>
-                  <button type="button" className="btn-light" onClick={() => this.init()}>重置</button><span >&nbsp;&nbsp;&nbsp;</span>
-                  <button type="button" className="btn-light" onClick={() => this.stop()}>暂停</button><span >&nbsp;&nbsp;&nbsp;</span>
-                  <button type="button" className="btn-light" onClick={() => this.nextstep()}>下一步</button><span >&nbsp;&nbsp;&nbsp;</span>
-                  <button type="button" className="btn-light" onClick={() => this.laststep()}>上一步</button><span >&nbsp;&nbsp;&nbsp;</span>
+                  排序：&nbsp;<button type="button" className="btn-light" onClick={() => this.start()}>冒泡排序</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <button type="button" className="btn-light" onClick={() => this.init()}>重置</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <button type="button" className="btn-light" onClick={() => this.stop2()}>暂停</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  单步：&nbsp;<button type="button" className="btn-light" onClick={() => this.nextstep()}>下一步</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <button type="button" className="btn-light" onClick={() => this.laststep()}>上一步</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   <br></br><br></br>
-                  生成数组方式：&nbsp;&nbsp;
+                  生成数组方式：&nbsp;
                   <button type="button" className="btn-light" onClick={() => this.changeInitMeansRandom()}>随机化生成</button>&nbsp;&nbsp;&nbsp;&nbsp;
                   <button type="button" className="btn-light" onClick={() => this.changeInitMeansInput()}>自定义数组</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                  排序速度：
+                  排序速度：&nbsp;
                     <select onChange={(e)=>this.getValue(e)}>
                       {
                         this.state.speeds.map((ele,index)=>{
@@ -141,10 +141,16 @@ class BubbleApp extends Component {
   getUserInput(){
     this.stop();
     var a=$('input#inputArray').val().split(" ");
-    // if(a.length > 20) console.error();
+    var len = a.length;
+    if(len > 20) len = 20;
     var arr=[];
-    for (var i=0; i<a.length; ++i){
-      arr[i] = parseInt(a[i]);
+    for (var i=0; i<len; ++i){
+      if(parseInt(a[i]) <= 50){
+        arr[i] = parseInt(a[i]);
+      }
+      else{
+        arr[i] = 50;
+      }
     }
     var oArr = [];
     for (var j = 0; j<arr.length; j++){
@@ -178,6 +184,7 @@ class BubbleApp extends Component {
 
   count(n){
     this.stop();
+    if (n > 20) n = 20;
     var arr = this.randomArr(n, this.state.r);
     var oArr = [];
     for (var i=0; i<n; i++){
@@ -258,14 +265,14 @@ class BubbleApp extends Component {
     var arrStates = [];
     var p = [];
     for (var i = 0; i < arr.length - 1; i++) {
-      const temp0 = { arr: arr.slice(), index1: i, index2: -1, complete: p.slice(), highlight: 0};
+      const temp0 = { arr: arr.slice(), index1: i, complete: p.slice(), highlight: 0};
       arrStates.push(temp0);
 			for(var j = i + 1; j < arr.length; j++){
         const temp1 = { arr: arr.slice(), index1: i, index2: j, complete: p.slice(), highlight: 1};
         arrStates.push(temp1);
 				if(arr[j] < arr[i]){
-          const temp0 = { arr: arr.slice(), index1: i, index2: j, complete: p.slice(), highlight: 2};
-          arrStates.push(temp0);
+          // const temp0 = { arr: arr.slice(), index1: i, index2: j, complete: p.slice(), highlight: 2};
+          // arrStates.push(temp0);
 					const tempVal = arr[i];
 					arr[i] = arr[j];
 					arr[j] = tempVal;
@@ -331,6 +338,18 @@ class BubbleApp extends Component {
         timeID: 0,
         sorting: 0,
         hlp: -1
+      });
+    }
+
+  }
+  stop2() {
+    var timeID = this.state.timeID;
+    var sorting = this.state.sorting;
+    if (timeID !== 0 && sorting === 1) {
+      clearInterval(timeID);
+      this.setState({
+        timeID: 0,
+        sorting: 2,
       });
     }
 

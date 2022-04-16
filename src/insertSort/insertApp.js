@@ -19,8 +19,9 @@ class InsertApp extends Component {
     }
     var preCodeArr = ['for i = 1 to i = 末尾元素位置: // a[i]是待插入元素',
                       '\xa0\xa0for j = i - 1 to j = 0: // a[j]是当前要与a[i]比较的元素',
-                      '\xa0\xa0\xa0\xa0if 待插入元素a[i] &lt; 当前元素a[j]: 将a[j]右移一位',
+                      '\xa0\xa0\xa0\xa0if 待插入元素a[i] < 当前元素a[j]: 将a[j]右移一位',
                       '\xa0\xa0\xa0\xa0else: 插入元素a[i], 跳出当前循环'];
+    // var arrStates = this.insertionSort(arr.slice());
     this.state = {                       
       arr: arr,
       n: n,
@@ -34,6 +35,7 @@ class InsertApp extends Component {
       initMeansInput: 'none',
       speeds:['慢速', '中速', '极速'],
       preCodeArr: preCodeArr,
+      arrStates: this.insertionSort(arr.slice()),
       hlp: -1,
       id:0
     }
@@ -56,6 +58,7 @@ class InsertApp extends Component {
     }
     this.setState({
       arr: arr,
+      arrStates: this.insertionSort(arr.slice()),
       n: this.state.n,
       timeID: 0,
       index: [],
@@ -90,16 +93,16 @@ class InsertApp extends Component {
           </div>
           <div className="buttons">
               <form action="insertApp.js">
-                  排序：<button type="button" className="btn-light" onClick={() => this.start()}>插入排序</button><span >&nbsp;&nbsp;&nbsp;</span>
-                  <button type="button" className="btn-light" onClick={() => this.init()}>重置</button><span >&nbsp;&nbsp;&nbsp;</span>
-                  <button type="button" className="btn-light" onClick={() => this.stop()}>暂停</button><span >&nbsp;&nbsp;&nbsp;</span>
-                  <button type="button" className="btn-light" onClick={() => this.nextstep()}>下一步</button><span >&nbsp;&nbsp;&nbsp;</span>
-                  <button type="button" className="btn-light" onClick={() => this.laststep()}>上一步</button><span >&nbsp;&nbsp;&nbsp;</span>
+                  排序：&nbsp;<button type="button" className="btn-light" onClick={() => this.start()}>插入排序</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <button type="button" className="btn-light" onClick={() => this.init()}>重置</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <button type="button" className="btn-light" onClick={() => this.stop2()}>暂停</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  单步：&nbsp;<button type="button" className="btn-light" onClick={() => this.nextstep()}>下一步</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <button type="button" className="btn-light" onClick={() => this.laststep()}>上一步</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   <br></br><br></br>
-                  生成数组方式：&nbsp;&nbsp;
+                  生成数组方式：&nbsp;
                   <button type="button" className="btn-light" onClick={() => this.changeInitMeansRandom()}>随机化生成</button>&nbsp;&nbsp;&nbsp;&nbsp;
                   <button type="button" className="btn-light" onClick={() => this.changeInitMeansInput()}>自定义数组</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                  排序速度：
+                  排序速度：&nbsp;
                     <select onChange={(e)=>this.getValue(e)}>
                       {
                         this.state.speeds.map((ele,index)=>{
@@ -135,9 +138,16 @@ class InsertApp extends Component {
   getUserInput(){
     this.stop();
     var a=$('input#inputArray').val().split(" ");
+    var len = a.length;
+    if(len > 20) len = 20;
     var arr=[];
-    for (var i=0; i<a.length; ++i){
-      arr[i] = parseInt(a[i]);
+    for (var i=0; i<len; ++i){
+      if(parseInt(a[i]) <= 50){
+        arr[i] = parseInt(a[i]);
+      }
+      else{
+        arr[i] = 50;
+      }
     }
     var oArr = [];
     for (var j = 0; j<arr.length; j++){
@@ -145,6 +155,7 @@ class InsertApp extends Component {
     }
     this.setState({
       arr: arr,
+      arrStates: this.insertionSort(arr.slice()),
       n: arr.length,
       timeID: 0,
       index: [],
@@ -165,6 +176,7 @@ class InsertApp extends Component {
 
   count(n){
     this.stop();
+    if (n > 20) n = 20;
     var arr = this.randomArr(n, this.state.r);
     var oArr = [];
     for (var i=0; i<n; i++){
@@ -172,6 +184,7 @@ class InsertApp extends Component {
     }
     this.setState({
       arr: arr,
+      arrStates: this.insertionSort(arr.slice()),
       n: n,
       timeID: 0,
       index: [],
@@ -187,7 +200,7 @@ class InsertApp extends Component {
     for(var x = 0; x < this.state.n; x++){
       arr[x] = this.state.arr[x];
     }
-    var arrStates = this.insertionSort(arr);
+    var arrStates = this.state.arrStates;
     if (this.state.sorting === 1) {
       this.stop();
       var timeID = setInterval(
@@ -263,38 +276,12 @@ class InsertApp extends Component {
     return arrStates;
  } 
 
-  insertionSort00(arr) {
-    var arrStates = [];
-    var p = [];
-    for(var i = 1; i < arr.length; i++){
-      const temp0 = { arr: arr.slice(), index1: i, index2: -1, complete: p.slice(), highlight: 0};
-      arrStates.push(temp0);
-      var value = arr[i];
-      for(var j = i - 1; j >= 0; j--){
-        if(arr[j] < value){
-          const temp0 = { arr: arr.slice(), index1: j, index2: j - 1, complete: p.slice(), highlight: 1};
-          arrStates.push(temp0);
-          arr[j + 1] = arr[j];
-          const temp1 = { arr: arr.slice(), index1: j, index2: j - 1, complete: p.slice(), highlight: 1};
-          arrStates.push(temp1);
-        }else{
-          
-          arr[j] = value;
-          const temp1 = { arr: arr.slice(), index1: j, index2: i, complete: p.slice(), highlight: 1};
-          arrStates.push(temp1);
-          break;
-        }
-      }
-  }
-  return arrStates;
- } 
-
   start() {
     var arr = [];
     for(var x = 0; x < this.state.n; x++){
       arr[x] = this.state.arr[x];
     }
-    var arrStates = this.insertionSort(arr);
+    var arrStates = this.state.arrStates;
     var timeID = this.state.timeID;
     var sorting = this.state.sorting;
     if (timeID === 0 && (sorting === 0||sorting === 2)) {
@@ -339,6 +326,17 @@ class InsertApp extends Component {
       });
     }
 
+  }
+  stop2() {
+    var timeID = this.state.timeID;
+    var sorting = this.state.sorting;
+    if (timeID !== 0 && sorting === 1) {
+      clearInterval(timeID);
+      this.setState({
+        timeID: 0,
+        sorting: 2,
+      });
+    }
   }
 }
 

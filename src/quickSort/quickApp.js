@@ -33,8 +33,8 @@ class QuickApp extends Component {
                       'QuickSort(A,start,end)',
                       '\xa0\xa0if start < end',
                       '\xa0\xa0\xa0\xa0pivot = Partition(A, start, end)//确定划分位置',
-                      '\xa0\xa0\xa0\xa0QuickSort(A, start, q - 1)//排序子数组A[start...q-1]',
-                      '\xa0\xa0\xa0\xa0QuickSort(A, q + 1, end)//排序子数组A[q+1...end]',
+                      '\xa0\xa0\xa0\xa0QuickSort(A, start, pivot - 1)//排序左子数组',
+                      '\xa0\xa0\xa0\xa0QuickSort(A, pivot + 1, end)//排序右子数组',
                       'end'];
     this.state = {
       arr: arr,
@@ -111,16 +111,16 @@ class QuickApp extends Component {
             </div>
             <div className="buttons">
               <form action="quickApp.js">
-                  排序：<button type="button" className="btn-light" onClick={() => this.start()}>快速排序</button><span >&nbsp;&nbsp;&nbsp;</span>
-                  <button type="button" className="btn-light" onClick={() => this.init()}>重置</button><span >&nbsp;&nbsp;&nbsp;</span>
-                  <button type="button" className="btn-light" onClick={() => this.stop()}>暂停</button><span >&nbsp;&nbsp;&nbsp;</span>
-                  <button type="button" className="btn-light" onClick={() => this.nextstep()}>下一步</button><span >&nbsp;&nbsp;&nbsp;</span>
-                  <button type="button" className="btn-light" onClick={() => this.laststep()}>上一步</button><span >&nbsp;&nbsp;&nbsp;</span>
+                  排序：&nbsp;<button type="button" className="btn-light" onClick={() => this.start()}>快速排序</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <button type="button" className="btn-light" onClick={() => this.init()}>重置</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <button type="button" className="btn-light" onClick={() => this.stop2()}>暂停</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  单步：&nbsp;<button type="button" className="btn-light" onClick={() => this.nextstep()}>下一步</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <button type="button" className="btn-light" onClick={() => this.laststep()}>上一步</button><span >&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   <br></br><br></br>
-                  生成数组方式：&nbsp;&nbsp;
+                  生成数组方式：&nbsp;
                   <button type="button" className="btn-light" onClick={() => this.changeInitMeansRandom()}>随机化生成</button>&nbsp;&nbsp;&nbsp;&nbsp;
                   <button type="button" className="btn-light" onClick={() => this.changeInitMeansInput()}>自定义数组</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                  排序速度：
+                  排序速度：&nbsp;
                     <select onChange={(e)=>this.getValue(e)}>
                       {
                         this.state.speeds.map((ele,index)=>{
@@ -157,9 +157,16 @@ class QuickApp extends Component {
   getUserInput(){
     this.stop();
     var a=$('input#inputArray').val().split(" ");
+    var len = a.length;
+    if(len > 20) len = 20;
     var arr=[];
-    for (var i=0; i<a.length; ++i){
-      arr[i] = parseInt(a[i]);
+    for (var i=0; i<len; ++i){
+      if(parseInt(a[i]) <= 50){
+        arr[i] = parseInt(a[i]);
+      }
+      else{
+        arr[i] = 50;
+      }
     }
     var oArr = [];
     for (var j = 0; j<arr.length; j++){
@@ -189,6 +196,7 @@ class QuickApp extends Component {
 
   count(n){
     this.stop();
+    if (n > 20) n = 20;
     var arr = this.randomArr(n, this.state.r);
     var oArr = [];
     for (var i=0; i<n; i++){
@@ -282,11 +290,12 @@ class QuickApp extends Component {
 
   partition(arr, start, end, arrStates) {
     var pivot = arr[end];
-    const temp0 = { arr: arr.slice(), index1: -1, index2: -1, pivot: end, highlight: 0};
+    const temp0 = { arr: arr.slice(), pivot: end, highlight: 0};
     arrStates.push(temp0);
 
     var i = start - 1;
-    
+    const temp2 = { arr: arr.slice(), index1: i, pivot: end, highlight: 2};
+    arrStates.push(temp2);
     for (let j = start; j < end; j++) {
         const temp3 = { arr: arr.slice(), index1: i, index2: j, pivot: end, highlight: 3};
         arrStates.push(temp3);
@@ -311,13 +320,13 @@ class QuickApp extends Component {
           arrStates.push(temp);
         }
     }
-    const temp4 = { arr: arr.slice(), index1: i+1, index2: end, pivot: end, highlight: 10};
-    arrStates.push(temp4);
+    const temp3 = { arr: arr.slice(), index1: i+1, index2: end, pivot: end, highlight: 10};
+    arrStates.push(temp3);
     const tempVal = arr[i+1];
     arr[i+1] = arr[end];
     arr[end] = tempVal;
-    const temp2 = { arr: arr.slice(), index1: i+1, index2: end, pivot: end, highlight: 10};
-    arrStates.push(temp2);
+    const temp4 = { arr: arr.slice(), index1: i+1, index2: end, pivot: end, highlight: 10};
+    arrStates.push(temp4);
     return i + 1;
  }
 
@@ -365,6 +374,17 @@ class QuickApp extends Component {
       });
     }
 
+  }
+  stop2() {
+    var timeID = this.state.timeID;
+    var sorting = this.state.sorting;
+    if (timeID !== 0 && sorting === 1) {
+      clearInterval(timeID);
+      this.setState({
+        timeID: 0,
+        sorting: 2,
+      });
+    }
   }
 
 }
